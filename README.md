@@ -1,5 +1,5 @@
-- `npm install`
-- `npm start`
+- Run `npm install` in terminal
 - Create `env.ts` in `./server` folder and copy content of `env.example.ts`
 - Modify `serviceport` value to `8080`
+- Run `npm start` in terminal
 - Open http://localhost:8080 in your browser.
