@@ -1,0 +1,17 @@
+$anchor_color: #00c3ff;
+
+a{
+    margin: 0 5%;
+    text-decoration: none;
+    color: $anchor_color;
+    cursor: pointer;
+}
+a:hover{
+    color: #af460a;
+}
+
+input[type=button], button {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+	'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+	sans-serif;
+}

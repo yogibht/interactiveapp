@@ -1,0 +1,10 @@
+node_modules
+package-lock.json
+
+dist/*
+!dist/.git*
+
+*.cert
+*.key
+
+server/env.ts
