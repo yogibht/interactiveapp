@@ -41,7 +41,7 @@ const compiler = webpack(
 			fs.unlinkSync(path.join(__dirname, "../", "dist", "index.html"));
 		}
 
-		const scriptFilenames = minimalStats?.assetsByChunkName?.["modelviewer"];
+		const scriptFilenames = minimalStats?.assetsByChunkName?.["interactiveapp"];
 		generateHTMLFromTemplate(scriptFilenames);
 	}
 );
@@ -77,9 +77,6 @@ const setupServer = (): void => {
 	const handleRender = (_req: Express.Request, res: Express.Response): void=>{
 		try{
 			res.sendFile(path.join(__dirname, "../", "dist", "index.html"));
-			/***** TEMP *****/
-			// res.sendFile(path.join(__dirname, "ammojsexample", "ammo.html"));
-			/****************/
 		}catch(err){
 			console.log(err);
 		}

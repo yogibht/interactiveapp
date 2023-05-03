@@ -1,5 +1,5 @@
 import { Scene, AmbientLight, Vector3 } from "three";
-import type { WebGLRenderer, Object3D } from "three";
+import type { WebGLRenderer, Object3D, Mesh } from "three";
 
 import type { IStoreDispatcher } from "@rendering/scenemanager.props";
 
@@ -24,7 +24,7 @@ class OrthoScene{
 	private orthoCamera: MainCamera;
 
 	private modelProcessor: AssetProcessor;
-	private mainObject: Object3D;//GLTF["scene"];
+	private mainObject: Mesh | Object3D;//GLTF["scene"];
 
 	private pinsManager: PinsManager;
 
@@ -49,11 +49,11 @@ class OrthoScene{
 			});
 			await this.orthoCamera.create(CameraData[1]);
 
-			const modelfileurl = "/gameassets/models/akirabike.glb";
+			const modelfileurl = "/gameassets/models/dwaynejohnson.ply";
 
-			const bike: IAsset = await this.modelProcessor.load(modelfileurl) as IAsset;
+			const buggy: Mesh = await this.modelProcessor.loadPLY(modelfileurl) as Mesh;
 
-			this.mainObject = bike.scene;
+			this.mainObject = buggy;
 
 			this.scene.add(this.mainObject);
 

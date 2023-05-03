@@ -1,8 +1,10 @@
-import { Color, Mesh, Object3D } from "three";
+import { Color, Mesh, Object3D, MeshBasicMaterial, Vector3 } from "three";
 import type { Texture, VideoTexture, MeshStandardMaterial, Group, Scene } from "three";
 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
+
+import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader";
 
 import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
 import type { GLTFExporterOptions } from "three/examples/jsm/exporters/GLTFExporter";
@@ -15,12 +17,15 @@ class AssetProcessor{
 
 	private gltfLoader: GLTFLoader;
 	private envMap: Texture | VideoTexture;
+	private plyLoader: PLYLoader;
 
 	private gtlfExporter: GLTFExporter;
 
 	constructor(envMap?: Texture | VideoTexture){
 		this.gltfLoader = new GLTFLoader();
 		if(envMap) this.envMap = envMap;
+
+		this.plyLoader = new PLYLoader();
 
 		this.gtlfExporter = new GLTFExporter();
 	}
@@ -56,6 +61,27 @@ class AssetProcessor{
 			};
 
 			return returnObj;
+		}
+		catch(err){
+			console.error(err);
+			await Promise.reject(err);
+		}
+
+	}
+
+	public async loadPLY(url: string): Promise<Mesh | undefined>{
+		try{
+			const modelgeometry = await this.plyLoader.loadAsync(url);
+			modelgeometry.computeVertexNormals();
+
+			const basicMat = new MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+
+			const mesh = new Mesh(modelgeometry, basicMat);
+			
+			// mesh.scale.set(0.01, 0.01, 0.01);
+			// mesh.rotateX(-Math.PI / 2);
+        
+			return mesh;
 		}
 		catch(err){
 			console.error(err);
